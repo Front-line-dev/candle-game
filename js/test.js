@@ -1,27 +1,23 @@
 const makeCandle = () => {
-    const chart = Highcharts.chart('container', {
+    const options = {
         chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Fruit Consumption'
-        },
-        xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
-        },
-        yAxis: {
-            title: {
-                text: 'Fruit eaten'
+            type: 'candlestick',
+            height: 350,
+            toolbar: {
+                show: false
             }
         },
+
         series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
+            data: [
+                {x: 1, y:[1,2,3,4]},
+                {x: 2, y:[5,6,7,8]}
+            ]
         }]
-    });
+    }
+
+    const chart = new ApexCharts(document.querySelector("#container"), options)
+    chart.render()
 }
 
 window.addEventListener('load', () => {
