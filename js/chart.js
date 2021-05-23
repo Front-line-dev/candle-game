@@ -33,8 +33,20 @@ class Chart {
             .slice(this.startIndex, this.startIndex + START_LENGTH)
             .map((candle, index) => ({
                 x: index,
-                y: candle.p.map((price) => price / this.normalizePrice)
+                y: candle.p
+                    // upbit bug correction
+                    .map((price, index) => {
+                        if (index === 0)
+                            return candle.p[3]
+                        else if (index === 3)
+                            return candle.p[0]
+                        return price
+                    })
+                    // normalize
+                    .map((price) => price / this.normalizePrice)
+                    
             }))
+
 
         const options = {
             ...candleOptions,
