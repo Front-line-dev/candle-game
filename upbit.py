@@ -80,16 +80,17 @@ def get_month_price(market, candle_type, year, month):
     # Check if file already exist
     path = get_file_path(market, year, month)
     if os.path.exists(path):
-        return
+        print('already exist', market, year, month)
+        return True
 
     # Check if month is behind this month
     today = datetime.datetime.today()
     if today.year == year and today.month <= month:
-        return
+        return False
 
     # Check if month first price exist
     if len(get_day_price(market, candle_type, year, month, 1)) == 0:
-        return
+        return False
 
     # get month days
     days = calendar.monthrange(year, month)[1]
@@ -102,11 +103,19 @@ def get_month_price(market, candle_type, year, month):
     # save json
     save_data(path, data)
     print('saved data', market, year, month)
+    return True
+    
 
 candle_type = CANDLE_TYPE['15']
+file_index = {}
 
-for year in range(2017, 2022):
-    for month in range(1, 13):
-        for market in MARKETS:
-            get_month_price(market, candle_type, year, month)
+for market in MARKETS:
+    market_index = []
+    for year in range(2017, 2022):
+        for month in range(1, 13):
+             if get_month_price(market, candle_type, year, month):
+                 market_index.append({'year': year, 'month': month})
+    file_index[market] = market_index
 
+with open('index.json', 'w') as outfile:
+    json.dump(file_index, outfile)
