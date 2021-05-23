@@ -23,15 +23,17 @@ class Chart {
     constructor(data, startIndex) {
         this.data = data
         this.startIndex = startIndex
+        this.normalizePrice = data[startIndex].p[0] / 1000
         this.initChart()
     }
 
     initChart() {
         document.querySelector(CANDLE_DIV).innerHTML = ''
-        const data = this.data.slice(this.startIndex, this.startIndex + START_LENGTH)
+        const data = this.data
+            .slice(this.startIndex, this.startIndex + START_LENGTH)
             .map((candle, index) => ({
                 x: index,
-                y: candle.p
+                y: candle.p.map((price) => price / this.normalizePrice)
             }))
 
         const options = {
@@ -48,6 +50,6 @@ class Chart {
     }
 
     delete() {
-        
+
     }
 }

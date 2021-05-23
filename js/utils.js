@@ -8,7 +8,7 @@ const getRandomIndex = (arr) => {
 
 const getRandomDate = (arr) => {
     const monthIndex = Math.floor(Math.random() * (arr.length - 1))
-    return [arr[monthIndex], arr[monthIndex - 1]]
+    return [arr[monthIndex], arr[monthIndex + 1]]
 }
 
 const fetchCache = new Map()
