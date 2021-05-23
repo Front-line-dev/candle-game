@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="./js/test.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/chart.js"></script>
+    <script src="./js/main.js"></script>
 </head>
 <body>
     <div class="wrap">
@@ -17,8 +20,8 @@
         <main class="main">
             <h2 class="main_heading"><span class="long">롱</span> or <span class="short">숏</span></h2>
             <div class="chart">
-                <div class="candle"></div>
-                <div class="volume"></div>
+                <div class="candle" id="candle"></div>
+                <div class="volume" id="volume"></div>
             </div>
             <div class="buttons">
                 <button type="button" class="long">롱</button>
@@ -27,9 +30,9 @@
             <div class="money"></div>
         </main>
         <footer class="footer">
-            <div class="github_img_wrap">
-                <img src="https://github.com/Front-line-dev/candle-game" alt="github" class="github_img">
-            </div>
+            <a href="https://github.com/Front-line-dev/candle-game" target="_blank" class="github_img_wrap">
+                <img src="" alt="github" class="github_img">
+            </a>
             <span class="footer_text"><span class="name">Front-line-dev</span> data from upbit 2021-05-23</span>
         </footer>
     </div>
