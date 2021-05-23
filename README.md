@@ -3,4 +3,4 @@
 
 ## To get price data
 > need python3 installed
-- `python3 upbit.pt`
+- `python3 upbit.py`
