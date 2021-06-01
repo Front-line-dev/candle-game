@@ -1,5 +1,98 @@
 @charset "utf-8";
 
+:root {
+    --red-color: #ef403c;
+    --green-color: #00b746;
+}
+
+.wrap {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+}
+
+.main {
+    flex-grow: 1;
+}
+
+.main_heading {
+    text-align: center;
+}
+
+.long {
+    color: var(--green-color);
+}
+
+.short {
+    color: var(--red-color);
+}
+
 .chart {
+    margin: 0 auto;
     max-width: 800px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons button {
+    cursor: pointer;
+}
+
+.cash_button {
+    margin: 0 10px;
+    padding: 20px;
+    background-color: black;
+    color: white;
+    font-size: 32px;
+    border: none;
+    border-radius: 999px;
+}
+
+.long_button {
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    font-size: 48px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--green-color);
+    color: white;
+}
+
+.short_button {
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    font-size: 48px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--red-color);
+    color: white;
+}
+
+.money {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    text-align: center;
+}
+
+.github_img_wrap {
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+}
+
+.footer_text .name{
+    font-weight: bold;
 }
