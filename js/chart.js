@@ -1,7 +1,7 @@
 const START_LENGTH = 15
 const END_LENGTH = 25
 const CANDLE_DIV = '#candle'
-const candleOptions = {
+const CANDLE_OPTION = {
     chart: {
         type: 'candlestick',
         height: 350,
@@ -20,48 +20,43 @@ const candleOptions = {
 
 
 class Chart {
-    constructor(data, startIndex) {
+    constructor(data, revealLength) {
         this.data = data
-        this.startIndex = startIndex
-        this.normalizePrice = data[startIndex].p[0] / 1000
-        this.initChart()
+        this.revealLength = revealLength - 1
+        this.chart = this.initChart()
+        this.revealNext()
     }
 
     initChart() {
         document.querySelector(CANDLE_DIV).innerHTML = ''
-        const data = this.data
-            .slice(this.startIndex, this.startIndex + START_LENGTH)
-            .map((candle, index) => ({
-                x: index,
-                y: candle.p
-                    // upbit bug correction
-                    .map((price, index) => {
-                        if (index === 0)
-                            return candle.p[3]
-                        else if (index === 3)
-                            return candle.p[0]
-                        return price
-                    })
-                    // normalize
-                    .map((price) => price / this.normalizePrice)
-                    
-            }))
 
-
-        const options = {
-            ...candleOptions,
-            series: [{data}]
-        }
-
-        this.chart = new ApexCharts(document.querySelector("#candle"), options)
-        this.chart.render()
+        const chart = new ApexCharts(document.querySelector("#candle"), CANDLE_OPTION)
+        chart.render()
+        return chart
     }
 
     revealNext() {
+        const candleData = this.data.slice(0, this.revealLength).map((candle, index) => ({ x: index, y: candle.p }))
+        const emptyData = new Array(this.data.length - this.revealLength).fill().map(() => ({x: 0}))
 
+        this.chart.updateSeries([{
+            data: [...candleData, ...emptyData]
+        }])
+
+        this.sendLastPrice()
+
+        this.revealLength = this.revealLength + 1
+
+        if (this.revealLength > this.data.length)
+            this.delete()
     }
 
     delete() {
 
+    }
+
+    sendLastPrice() {
+        const lastPrice = this.data[this.revealLength - 1].p[3]
+        money.applyPrice(lastPrice)
     }
 }
